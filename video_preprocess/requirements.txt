@@ -1,0 +1,11 @@
+requests
+opencv-python
+numpy
+h5py
+tqdm
+torch
+transformers
+supervision
+huggingface_hub
+av
+python-dotenv

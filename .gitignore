@@ -1,0 +1,21 @@
+# data
+data/
+datasets/
+segmented_data/
+videos/
+results_*/
+
+# env
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# archives and temp
+*.tar.gz
+*.zip
+tmp/
+
+# os
+.DS_Store
+Thumbs.db
