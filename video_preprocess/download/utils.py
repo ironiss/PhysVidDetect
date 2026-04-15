@@ -1,5 +1,6 @@
 import random
 import shutil
+import subprocess
 import tarfile
 import zipfile
 from pathlib import Path
@@ -48,6 +49,9 @@ def extract(archive, to_dir):
                 if Path(name).suffix.lower() in VIDEO_EXTS:
                     zf.extract(name, path=to_dir)
                     videos.append(to_dir / name)
+    elif archive.suffix == ".rar":
+        subprocess.run(["unrar", "x", "-o-", str(archive), str(to_dir) + "/"], check=True)
+        videos = find_videos(to_dir)
     else:
         with tarfile.open(archive, "r:gz") as tf:
             for m in tf.getmembers():

@@ -19,6 +19,7 @@ SOURCES = {
     "MSRVTT":   {"url": "https://www.robots.ox.ac.uk/~maxbain/frozen-in-time/data/MSRVTT.zip", "label": "real", "count": 3000},
     "GenVideo-Real":    {"label": "real", "count": 3000, "type": "multipart", "parts": ["Real_part_aa", "Real_part_ab", "Real_part_ac"]},
     "Kinetics-400": {"label": "real", "count": 3000, "type": "k400"},
+    "UCF101":   {"url": "https://www.crcv.ucf.edu/datasets/human-actions/ucf101/UCF101.rar", "label": "real", "count": 7000},
 }
 
 K400_TRAIN_PATH_URL = "https://s3.amazonaws.com/kinetics/400/train/k400_train_path.txt"
