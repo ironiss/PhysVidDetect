@@ -1,0 +1,63 @@
+rank,feature,auc,branch,group
+1,edgeflow_align_diff_std_objmedian,0.7314454562124358,physics,Edge-flow alignment
+2,edgeflow_align_diff_std_objspread,0.6770210549029319,physics,Edge-flow alignment
+3,psd_slope_diff_median_objmedian,0.6758574312778993,physics,PSD slope difference
+4,latent_std,0.6750032228084026,latent,Basic latent stats
+5,object_latent_temporal_variance,0.6657864287574661,latent,Object-level latent
+6,latent_frame_distance_std,0.6606380927047588,latent,Temporal latent
+7,latent_mean,0.6442218439690633,latent,Basic latent stats
+8,object_latent_entropy,0.6429470279793787,latent,Object-level latent
+9,psd_slope_diff_std_objspread,0.6398835898245976,physics,PSD slope difference
+10,inside_out_dG_diffz_std_objmedian,0.6388087485488237,physics,Inside-outside contrast
+11,spatial_entropy,0.6382053753086304,latent,Spatial statistics
+12,inter_obj_pairs,0.6343028207712667,physics,Inter-object consistency
+13,hf_var_ratio_std_objspread,0.6266997485698469,physics,HF noise variance
+14,mahalanobis_distance,0.6229295372178527,latent,Latent manifold
+15,patch_similarity,0.6202425435236079,latent,Patch consistency
+16,inside_out_dG_diffz_std_objspread,0.6171802733175116,physics,Inside-outside contrast
+17,inside_out_dI_diffz_std_objspread,0.6125495392734424,physics,Inside-outside contrast
+18,ch3_variance,0.6115042069511635,latent,Per-channel stats
+19,orient_phase_noise_objspread,0.6073572226530656,physics,Boundary orientation
+20,latent_kurtosis,0.607348828021892,latent,Basic latent stats
+21,valid_frac_objspread,0.6046812149761388,physics,Valid fraction
+22,ch1_mean,0.6025495808816144,latent,Per-channel stats
+23,spatial_variance,0.6005133718444946,latent,Spatial statistics
+24,inside_out_dI_diffz_std_objmedian,0.5968951763135335,physics,Inside-outside contrast
+25,ch1_variance,0.5932582023576213,latent,Per-channel stats
+26,hf_var_ratio_median_objmedian,0.592775967295101,physics,HF noise variance
+27,orient_R_median_objspread,0.5911298348695753,physics,Boundary orientation
+28,psd_slope_diff_std_objmedian,0.5892183043545799,physics,PSD slope difference
+29,hf_var_ratio_median_objspread,0.5836317685546167,physics,HF noise variance
+30,channel_mutual_information,0.5784464596263498,latent,Latent correlation
+31,ch3_energy,0.5766812146841516,latent,Per-channel stats
+32,patch_variance_std,0.573849413602164,latent,Patch consistency
+33,spatial_autocorrelation,0.5735142123295671,latent,Spatial statistics
+34,ch0_variance,0.5699177880920625,latent,Per-channel stats
+35,orient_phase_noise_objmedian,0.5633213234143345,physics,Boundary orientation
+36,ch3_mean,0.5624040092174509,latent,Per-channel stats
+37,spectral_slope,0.5601301591213288,latent,Frequency features
+38,inter_obj_corr_min,0.5585610018138243,physics,Inter-object consistency
+39,psd_slope_diff_median_objspread,0.5571956880502499,physics,PSD slope difference
+40,ch0_energy,0.5551205899717591,latent,Per-channel stats
+41,channel_correlation_std,0.553092793815011,latent,Latent correlation
+42,latent_temporal_entropy,0.5525248605177282,latent,Temporal latent
+43,nearest_neighbor_distance,0.5507618237285127,latent,Latent manifold
+44,gradient_magnitude_mean,0.5444026898734178,latent,Spatial statistics
+45,edgeflow_align_median_objspread,0.5430039983263295,physics,Edge-flow alignment
+46,ch2_energy,0.5422973528735042,latent,Per-channel stats
+47,orient_R_median_objmedian,0.5393923542575233,physics,Boundary orientation
+48,ch0_mean,0.530972447944527,latent,Per-channel stats
+49,channel_correlation_mean,0.5305218204932948,latent,Latent correlation
+50,valid_frac_objmedian,0.5280055662974391,physics,Valid fraction
+51,latent_skewness,0.5279327884950047,latent,Basic latent stats
+52,inter_obj_corr_median,0.5274579261085585,physics,Inter-object consistency
+53,hf_var_ratio_std_objmedian,0.5192233586525142,physics,HF noise variance
+54,object_latent_variance,0.5154346426135421,latent,Object-level latent
+55,edgeflow_align_median_objmedian,0.5151919647758356,physics,Edge-flow alignment
+56,patch_entropy,0.5133967728993859,latent,Patch consistency
+57,gradient_magnitude_std,0.5130866825235166,latent,Spatial statistics
+58,spectral_entropy,0.5117501659947068,latent,Frequency features
+59,object_latent_motion_consistency,0.5060520180985328,latent,Object-level latent
+60,latent_density_score,0.5048718424507301,latent,Latent manifold
+61,ch2_variance,0.5017248959649708,latent,Per-channel stats
+62,ch2_mean,0.5000033943508658,latent,Per-channel stats

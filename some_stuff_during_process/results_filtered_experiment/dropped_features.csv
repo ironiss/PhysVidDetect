@@ -1,0 +1,13 @@
+feature,gen_mean_auc
+latent_std,0.7657470569143597
+latent_kurtosis,0.7558644489248073
+ch0_variance,0.711462550294446
+ch1_variance,0.747318525077111
+ch0_energy,0.7311317126829385
+gradient_magnitude_mean,0.7333192009688932
+spectral_entropy,0.7287706807046571
+spectral_slope,0.7004253426796075
+noise_residual_energy,0.8154891962557981
+patch_similarity,0.7387849530662636
+channel_correlation_std,0.7446569452731495
+channel_mutual_information,0.8025468904478137
