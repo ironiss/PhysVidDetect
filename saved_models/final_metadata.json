@@ -1,0 +1,64 @@
+{
+  "hyperparameters": {
+    "n_estimators": 500,
+    "max_depth": 6,
+    "learning_rate": 0.1,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "scale_pos_weight": 1.0757816274415073,
+    "eval_metric": "logloss",
+    "random_state": 42
+  },
+  "n_features": 74,
+  "n_train": 30076,
+  "n_test": 3200,
+  "overall": {
+    "auc": 0.9951289062500001,
+    "acc": 0.970625,
+    "f1": 0.9706982543640897
+  },
+  "per_generator": {
+    "DynamicCrafter": {
+      "auc": 0.9989625,
+      "acc": 0.975
+    },
+    "Latte": {
+      "auc": 0.9923531250000001,
+      "acc": 0.97
+    },
+    "OpenSora": {
+      "auc": 0.994040625,
+      "acc": 0.9722222222222222
+    },
+    "Pika": {
+      "auc": 0.99280625,
+      "acc": 0.9716666666666667
+    },
+    "SEINE": {
+      "auc": 0.995040625,
+      "acc": 0.9733333333333334
+    },
+    "SVD": {
+      "auc": 0.9918250000000001,
+      "acc": 0.97
+    },
+    "VideoCrafter": {
+      "auc": 0.999034375,
+      "acc": 0.975
+    },
+    "ZeroScope": {
+      "auc": 0.99696875,
+      "acc": 0.9733333333333334
+    }
+  },
+  "confusion_matrix": [
+    [
+      1549,
+      51
+    ],
+    [
+      43,
+      1557
+    ]
+  ]
+}

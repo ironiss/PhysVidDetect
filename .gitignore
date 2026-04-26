@@ -4,6 +4,12 @@ datasets/
 segmented_data/
 videos/
 results_*/
+!training_testing/**/results_*/
+
+# models
+*.pkl
+!saved_models/*.pkl
+!saved_models/logo/*.pkl
 
 # env
 .env
