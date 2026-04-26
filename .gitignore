@@ -3,8 +3,7 @@ data/
 datasets/
 segmented_data/
 videos/
-results_*/
-!training_testing/**/results_*/
+/results_*/
 
 # models
 *.pkl
