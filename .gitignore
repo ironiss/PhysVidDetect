@@ -1,26 +1,63 @@
-# data
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# --- Environments ---
+.env
+.venv/
+env/
+venv/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Archives & temp ---
+*.tar.gz
+*.zip
+tmp/
+tmp_fake_upload/
+
+# --- Data & large files ---
 data/
 datasets/
 segmented_data/
 videos/
+feature_data/
+fake_shards/
+real_shards/
+*.h5
+*.mp4
+
+# --- Old results in root ---
 /results_*/
 
-# models
+# --- Models ---
 *.pkl
 !saved_models/*.pkl
 !saved_models/logo/*.pkl
 
-# env
-.env
-.venv/
-__pycache__/
-*.pyc
-
-# archives and temp
-*.tar.gz
-*.zip
-tmp/
-
-# os
-.DS_Store
-Thumbs.db
+# --- Project-specific ---
+data_test_invertors/
+invertors/
+invertors_testing/
+object-tracker-tests/
+examplesofdiplomas/
+training/
