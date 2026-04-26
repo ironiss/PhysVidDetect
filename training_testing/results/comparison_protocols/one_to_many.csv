@@ -1,0 +1,2 @@
+train_gen,auc,acc,threshold,n_train,n_test
+OSora,0.975424596788297,0.8231239229202569,0.5,14127,19149
