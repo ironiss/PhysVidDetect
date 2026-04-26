@@ -9,14 +9,12 @@ from sklearn.metrics import roc_auc_score, accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
 from xgboost import XGBClassifier
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils import fill_nan, safe_auc, basic_cleanup
-
-
 
 warnings.filterwarnings("ignore")
 
-BASE = Path(__file__).resolve().parent.parent
+BASE = Path(__file__).resolve().parent.parent.parent
 KNOWN_FAKE = {"DynamicCrafter", "SVD", "ZeroScope", "Pika", "Latte", "OpenSora", "VideoCrafter", "SEINE"}
 KNOWN_REAL = {"GenVideo-Real", "GenVideo-Real-clean-3k", "Kinetics-400", "Kinetics-400-additional-4k", "UCF-101-7k"}
 
@@ -198,7 +196,7 @@ def main():
     seen_df = run_seen(X_safe, y, generators, test_size=args.seen_test_size)
 
     if args.save_csv:
-        out_dir = Path(__file__).resolve().parent / "results" / "final_model"
+        out_dir = Path(__file__).resolve().parent.parent / "results" / "final_model"
         out_dir.mkdir(parents=True, exist_ok=True)
         logo_df.to_csv(out_dir / "logo_results.csv", index=False)
         seen_df.to_csv(out_dir / "seen_per_generator.csv", index=False)
