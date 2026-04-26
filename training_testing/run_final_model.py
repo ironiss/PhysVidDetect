@@ -111,8 +111,7 @@ def get_tuned_model(y):
         n_estimators=500, max_depth=6, learning_rate=0.1,
         subsample=0.8, colsample_bytree=0.8,
         scale_pos_weight=n_neg/n_pos,
-        eval_metric="logloss", random_state=42,
-    )
+        eval_metric="logloss", random_state=42)
 
 
 def run_logo(X, y, generators):
@@ -205,7 +204,7 @@ def main():
         seen_df.to_csv(out_dir / "seen_per_generator.csv", index=False)
         print(f"\nsaved to {out_dir}")
 
-
+    print(f"<TA-DAM DONE>")
 
 
 if __name__ == "__main__":

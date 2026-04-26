@@ -1,11 +1,16 @@
 import argparse
+import sys
 import warnings
+from pathlib import Path
 import numpy as np
 import pandas as pd
+import os
 from xgboost import XGBClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import roc_auc_score
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from utils import load_h5, fill_nan, extract_generator, merge_h5_by_filename, safe_auc, basic_cleanup
 
 warnings.filterwarnings("ignore")
@@ -13,7 +18,7 @@ warnings.filterwarnings("ignore")
 
 
 def compute_ranking(X, y, generators, names):
-    """per-feature AUC ranking: global + per-generator + stability"""
+    """per-feature AUC ranking: global+per-generator+stability"""
     is_real = (y == 1)
     fake_gens = sorted(set(generators[y==0]))
     rows = []
@@ -71,7 +76,8 @@ def logo_eval(X, y, generators, label="", model_type="xgb"):
     mean_auc = np.mean(list(aucs.values()))
     min_auc = min(aucs.values())
     parts = "  ".join(f"{g}={a:.3f}" for g, a in aucs.items())
-    print(f"  {label:30s} n={X.shape[1]:3d}  mean={mean_auc:.3f}  min={min_auc:.3f}  {parts}")
+    print(f"{label:30s} n={X.shape[1]:3d}  mean={mean_auc:.3f}  min={min_auc:.3f}  {parts}")
+    
     return aucs, mean_auc
 
 
@@ -80,8 +86,6 @@ def select_features(X, names, ranking, method, k):
         top = ranking.sort_values("global_auc", ascending=False).head(k).index
     elif method=="stable":
         top = ranking.sort_values("stability", ascending=False).head(k).index
-    else:
-        raise ValueError(f"unknown method: {method}")
 
     idx = [i for i, n in enumerate(names) if n in top]
     return X[:, idx]
@@ -89,9 +93,12 @@ def select_features(X, names, ranking, method, k):
 
 def main():
     parser = argparse.ArgumentParser()
+
     parser.add_argument("--latent-feats", required=True, help="path to h5 file with latent features")
-    parser.add_argument("--object-based-feats", help="optional path to h5 file with object-based features (will be merged with latent features)")
+    parser.add_argument("--object-based-feats", help="optional path to h5 file with object-based features")
     parser.add_argument("--model", default="xgb", choices=["xgb", "logreg"])
+    parser.add_argument("--out-dir", default="results_stability_selection")
+
     args = parser.parse_args()
 
     X, y, paths, feat_names = load_h5(args.latent_feats)
@@ -106,33 +113,48 @@ def main():
     print(f"total: {len(y)} samples, {X.shape[1]} features")
     print(f"real: {(y==1).sum()}, fake: {(y==0).sum()}")
 
+    out_dir = args.out_dir
+    os.makedirs(out_dir, exist_ok=True)
+
     X_clean, clean_names = basic_cleanup(X, y, feat_names)
     print(f"after cleanup: {X_clean.shape[1]} features")
 
     ranking, fake_gens = compute_ranking(X_clean, y, generators, clean_names)
+    ranking.to_csv(os.path.join(out_dir, "feature_ranking.csv"))
 
-    print(f"\nLOGO evaluation ({args.model}):")
-    logo_eval(X_clean, y, generators, "All cleaned", model_type=args.model)
+    print(f"LOGO evaluation ({args.model}):")
+    results = []
+    aucs, mean = logo_eval(X_clean, y, generators, "All cleaned", model_type=args.model)
+    results.append({"method": "All cleaned", "n": X_clean.shape[1], "mean": mean, "min": min(aucs.values()), **aucs})
+
 
     for k in [20, 30, 40]:
         if k>len(clean_names):
             continue
 
         X_sel = select_features(X_clean, clean_names, ranking, "global", k)
-        logo_eval(X_sel, y, generators, f"Global top-{k}", model_type=args.model)
+        aucs, mean = logo_eval(X_sel, y, generators, f"Global top-{k}", model_type=args.model)
+        results.append({"method": f"Global top-{k}", "n": k, "mean": mean, "min": min(aucs.values()), **aucs})
 
     for k in [20, 30, 40]:
         if k>len(clean_names):
             continue
 
         X_sel = select_features(X_clean, clean_names, ranking, "stable", k)
-        logo_eval(X_sel, y, generators, f"Stable top-{k}", model_type=args.model)
+        aucs, mean = logo_eval(X_sel, y, generators, f"Stable top-{k}", model_type=args.model)
+        results.append({"method": f"Stable top-{k}", "n": k, "mean": mean, "min": min(aucs.values()), **aucs})
 
-    print(f"\ntop 10 most stable features:")
+    results_df = pd.DataFrame(results)
+    results_df.to_csv(os.path.join(out_dir, f"logo_selection_{args.model}.csv"), index=False)
+    print(f"saved to {out_dir}/logo_selection_{args.model}.csv")
+
+    print(f"top 10 most stable features:")
     for i, (feat, row) in enumerate(ranking.sort_values("stability", ascending=False).head(10).iterrows()):
         gens_str = "  ".join(f"{g}={row[g]:.3f}" for g in fake_gens)
-        print(f"  {i+1}. {feat:35s} stability={row['stability']:.3f}  {gens_str}")
+        
+        print(f"{i+1}. {feat:35s} stability={row['stability']:.3f}  {gens_str}")
 
+    print(f"<TA-DAM DONE>")
 
 
 
