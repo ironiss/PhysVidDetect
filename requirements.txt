@@ -1,0 +1,26 @@
+numpy
+pandas
+scikit-learn
+xgboost
+matplotlib
+scipy
+h5py
+tqdm
+
+# feature extraction
+torch
+torchvision
+diffusers
+transformers
+huggingface_hub
+
+# video & image processing
+opencv-python
+Pillow
+av
+
+# segmentation
+supervision
+
+# camera motion (VGGT)
+vggt
