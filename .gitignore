@@ -40,7 +40,6 @@ data/
 datasets/
 segmented_data/
 videos/
-feature_data/
 fake_shards/
 real_shards/
 *.h5
