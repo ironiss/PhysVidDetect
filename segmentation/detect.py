@@ -1,3 +1,6 @@
+import os
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 import re
 import av
 import numpy as np
@@ -13,11 +16,12 @@ llava_model = None
 llava_processor = None
 
 LLAVA_PROMPT = (
-    "Identify and list the main distinct physical objects, animals, or people visible in this video. "
-    "Only include prominent objects that play a role in the scene. "
-    "Ignore background elements such as sky, grass, walls, or lighting."
-    "Reply ONLY with a comma-separated list of short object names, nothing else. "
-    "Example: car, person, tree, dog"
+    "Look carefully at this specific video and name only the prominent objects, "
+    "animals or people that you actually see. "
+    "Do NOT guess or list common things. "
+    "If you only see one thing, list one. "
+    "Skip background like sky, grass, walls, lighting, water, road. "
+    "Answer with a short comma-separated list of nouns referring to what is in this video."
 )
 
 
@@ -103,7 +107,17 @@ def detect_objects(video_path, top_n= 5):
     inputs = {k: v.to(LLAVA_DEVICE) for k, v in inputs.items()}
 
     with torch.no_grad():
-        output_ids = llava_model.generate(**inputs, max_new_tokens=100, do_sample=False)
+        output_ids = llava_model.generate(
+            **inputs,
+            max_new_tokens=80,
+            do_sample=True,
+            temperature=0.5,
+            top_p=0.9,
+            repetition_penalty=1.4,
+            no_repeat_ngram_size=3,
+        )
+
+        
 
     prompt_len = inputs["input_ids"].shape[1]
     answer = llava_processor.batch_decode(output_ids[:, prompt_len:], skip_special_tokens=True)[0].strip()

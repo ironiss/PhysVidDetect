@@ -13,6 +13,8 @@ torchvision
 diffusers
 transformers
 huggingface_hub
+accelerate
+kernels
 
 # video & image processing
 opencv-python
@@ -23,4 +25,4 @@ av
 supervision
 
 # camera motion (VGGT)
-vggt
+# vggt
