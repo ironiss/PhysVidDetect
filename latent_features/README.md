@@ -17,4 +17,5 @@ python extract_latent_features.py
 ```
 
 **Input:** `segmented_data/<hash>/{frames/, masks/, meta.json}`
+
 **Output:** `feature_data/latent_noise_festures.h5` + `.csv` (path, label, 80 cols)
