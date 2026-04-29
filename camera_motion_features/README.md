@@ -17,6 +17,7 @@ python run_dataset_fast.py
 ```
 
 **Input:** `/workspace/dataset/{real,fake}/*.mp4`
+
 **Output:** `feature_data/camera_motion_features.csv` (video, label, 18 cols)
 
 VGGT install: `git clone https://github.com/facebookresearch/vggt.git && cd vggt && pip install -e .`
