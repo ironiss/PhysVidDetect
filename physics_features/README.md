@@ -15,4 +15,5 @@ python extract_features.py --data-dir ../segmented_data/ --workers 8
 ```
 
 **Input:** `segmented_data/<hash>/` produced by `segmentation/`
+
 **Output:** `feature_data/object_based_features.h5` + `.csv` (path, label, 26 cols)
