@@ -27,14 +27,21 @@ Useful flags:
 - `--skip-segmentation --segmented-dir <DIR>` -- reuse an existing `segmented_data/<hash>/` (faster on re-runs)
 - `--out-json result.json` -- dump full result (incl. all 124 raw features)
 
-**Output (stdout):**
+## Example
+
+Sample fake video shipped in [`assets/generated_video_sample.mp4`](../assets/generated_video_sample.mp4):
+
+![Sample video](../assets/generated_video_sample.gif)
+
+> 🐱 That's my cat! The clip was generated from a single still photo of him by an unknown image-to-video model -- a nice in-the-wild test for the detector.
+
 ```
-prediction  : FAKE
-confidence  : 0.984
-P(real)     : 0.0157
-P(fake)     : 0.9843
-features    : 74
+python inference_pipeline/predict_video.py assets/generated_video_sample.mp4
 ```
+
+Result:
+
+![Results sample](../assets/results_sample.png)
 
 ## Requirements
 
