@@ -35,7 +35,11 @@ All commands assume you're in the project root and have `feature_data/` populate
 
 ### 1. Save the production model — `save_model/save_final_model.py`
 
-Trains XGBoost on the full dataset with stratified test (200 per gen + matching real), saves to `saved_models/`.
+Trains XGBoost on the full dataset and saves artifacts to `saved_models/`. Test split is built so the test set is balanced 50 / 50 between real and fake:
+
+- **Fake:** 200 clips per generator × 8 generators = **1600** (per-generator share is in the 7–14 % band, so on average ~10 %).
+- **Real:** **1600** clips uniformly sampled from the real pool of ~16k → also ~10 %.
+- Together this is a **conditional 90 / 10 train/test split**.
 
 ```bash
 python training_testing/save_model/save_final_model.py
