@@ -101,7 +101,11 @@ This part is for researchers who want to **retrain the classifier**, **add new f
 
 The full **PhysVid-Det** dataset used in this work is published on Hugging Face:
 
-🤗 **[ironiss/PhysVid-Det-DATA](https://huggingface.co/datasets/ironiss/PhysVid-Det-DATA/tree/main)** *(raw, NOT pre-segmented — run [`segmentation/segment_dataset.py`](segmentation/segment_dataset.py) first)*
+🤗 **[ironiss/PhysVid-Det-DATA](https://huggingface.co/datasets/ironiss/PhysVid-Det-DATA)** *(private — request access)*
+
+Hosted privately to comply with the redistribution terms of the upstream sources. The pre-extracted features in [`feature_data/`](feature_data/) are public and fully reproduce all classifier results — see [Pre-computed features](#pre-computed-features-skip-extraction).
+
+If you do get access, the videos are raw (NOT pre-segmented — run [`segmentation/segment_dataset.py`](segmentation/segment_dataset.py) first).
 
 Composition:
 

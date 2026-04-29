@@ -53,6 +53,8 @@ huggingface-cli login   # accept facebook/sam3 model card first
 
 Recommended GPU: >=24 GB VRAM. Models are loaded sequentially, so peak VRAM ~= largest single stage, not their sum.
 
+> **Runtime scales with the number of tracked objects** — SAM 3 propagates a separate mask per object across every frame, so clips with more prominent things (or noisy Video-LLaVA prompts) take longer. The other stages are roughly constant per video.
+
 ## Limitations
 
 Reminder: feed **horizontal** videos -- vertical clips are out-of-distribution and often misclassified. See the root [README](../README.md#limitations) for the full list.
