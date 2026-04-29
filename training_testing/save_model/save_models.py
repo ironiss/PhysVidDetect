@@ -127,9 +127,10 @@ def main():
     with open(out_dir / "production_scaler.pkl", "wb") as f:
         pickle.dump(scaler, f)
 
-    np.save(out_dir / "safe_feature_mask.npy", safe_mask)
-    with open(out_dir / "feature_names.json", "w") as f:
-        json.dump({"all_features": all_names.tolist(), "safe_features": safe_names.tolist()}, f, indent=2)
+    # this file is actually written by save_final_model.py, so in order not to ruing everything when someone will take a look at this
+    # np.save(out_dir / "safe_feature_mask.npy", safe_mask)
+    # with open(out_dir / "feature_names.json", "w") as f:
+    #     json.dump({"all_features": all_names.tolist(), "safe_features": safe_names.tolist()}, f, indent=2)
 
 
     print("LOGO MODELS:")
