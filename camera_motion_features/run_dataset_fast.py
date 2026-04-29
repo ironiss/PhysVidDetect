@@ -16,7 +16,7 @@ from vggt.utils.pose_enc import pose_encoding_to_extri_intri
 VIDEO_EXTS = {".mp4", ".avi", ".mov", ".mkv", ".webm", ".flv", ".wmv"}
 N_FRAMES = 32
 DATA_DIR = Path("dataset")
-RESULTS_DIR = Path("results")
+RESULTS_DIR = Path("../feature_data")
 PROGRESS_FILE = RESULTS_DIR / "progress.json"
 
 
@@ -190,7 +190,7 @@ def main():
         batch_comparison(
             all_feats, labels, names,
             output_path=str(RESULTS_DIR / "comparison.png"),
-            csv_path=str(RESULTS_DIR / "features.csv"),
+            csv_path=str(RESULTS_DIR / "camera_motion_features.csv"),
         )
 
     n_ok = len(progress["completed"])

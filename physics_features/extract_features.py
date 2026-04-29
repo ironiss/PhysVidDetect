@@ -51,7 +51,7 @@ def process_one(vid_dir):
 def main():
     parser = argparse.ArgumentParser(description="extract physics features from segmented data")
     parser.add_argument("--data-dir", type=str, required=True, help="path to segmented data")
-    parser.add_argument("--out", type=str, default="physics_features.h5", help="output file path")
+    parser.add_argument("--out", type=str, default="../feature_data/object_based_features.h5", help="output file path")
     parser.add_argument("--workers", type=int, default=0, help="number of worker processes")
 
     args = parser.parse_args()

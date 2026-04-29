@@ -20,6 +20,8 @@ kernels
 opencv-python
 Pillow
 av
+requests
+python-dotenv
 
 # segmentation
 supervision

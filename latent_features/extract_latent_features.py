@@ -305,7 +305,7 @@ def save_results(results, out_path):
 
 def parser_vals():
     parser = argparse.ArgumentParser(description="extract latent features via DDIM inversion")
-    parser.add_argument("--out", type=str, default="latent_features.h5")
+    parser.add_argument("--out", type=str, default="../feature_data/latent_noise_festures.h5")
     parser.add_argument("--model", type=str, default=MODEL_ID)
     parser.add_argument("--img-size", type=int, default=IMG_SIZE)
     parser.add_argument("--k-frames", type=int, default=K_FRAMES)
