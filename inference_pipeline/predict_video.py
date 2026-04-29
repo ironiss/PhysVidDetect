@@ -1,5 +1,24 @@
 import sys
 import os
+
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+os.environ.setdefault("TRANSFORMERS_NO_ADVISORY_WARNINGS", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("DIFFUSERS_VERBOSITY", "error")
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import logging
+logging.getLogger("transformers").setLevel(logging.ERROR)
+logging.getLogger("diffusers").setLevel(logging.ERROR)
+logging.getLogger("accelerate").setLevel(logging.ERROR)
+logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+logging.getLogger("av").setLevel(logging.ERROR)
+logging.getLogger("PIL").setLevel(logging.ERROR)
+
 import argparse
 import gc
 import hashlib
@@ -7,15 +26,24 @@ import json
 import pickle
 import shutil
 import tempfile
-import warnings
 from pathlib import Path
 import cv2
 import numpy as np
 import torch
 from xgboost import XGBClassifier
 
-warnings.filterwarnings("ignore")
-os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+try:
+    from transformers import logging as _hf_log
+    _hf_log.set_verbosity_error()
+    _hf_log.disable_progress_bar()
+    _hf_log.disable_default_handler()
+except Exception:
+    pass
+try:
+    from diffusers.utils import logging as _df_log
+    _df_log.set_verbosity_error()
+except Exception:
+    pass
 
 PROJ_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJ_ROOT))
@@ -120,8 +148,7 @@ def run_segmentation(video_path, out_dir):
     
     print(f"--preprocessed: {len(frame_paths)} frames, {fps:.0f}fps, {resolution}")
 
-    prompts = detect_objects(str(video_path), top_n=5)
-    print(f"--Video-LLaVA prompts: {prompts}")
+    prompts = detect_objects(str(video_path), top_n=5)    
 
     frames_rgb = []
     for p in frame_paths:
@@ -134,9 +161,10 @@ def run_segmentation(video_path, out_dir):
     tracks, _ = sam3_text_tracks_from_video(str(video_path), prompts=prompts, frames_rgb=frames_rgb)
     
     if not tracks:
-        raise RuntimeError("SAM 3 found no objects to track")
-    
-    print(f"--SAM 3 tracked {len(tracks)} objects")
+        print("--SAM 3 found no objects -- continuing with empty tracks (object features neutralized)")
+        tracks = {}
+    else:
+        print(f"--SAM 3 tracked {len(tracks)} objects")
 
     save_tracks(tracks, prompts, str(video_path), label="unknown", fps=fps, resolution=resolution, frame_paths=frame_paths, out_dir=str(vid_out))
     
@@ -170,8 +198,9 @@ def extract_physics_features(vid_dir):
 
     tracks, frame_paths, _ = load_tracks(str(vid_dir))
     if not tracks or not frame_paths:
-        raise RuntimeError("no tracks to compute physics features from")
-    
+        print("--no tracks available -- returning NaN physics features")
+        return {k: float("nan") for k in PHYSICS_FEATURE_KEYS}
+
     vec = extract_all_physics_features(tracks, frame_paths)
     return dict(zip(PHYSICS_FEATURE_KEYS, vec.astype(float)))
 

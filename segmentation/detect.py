@@ -1,11 +1,31 @@
 import os
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+os.environ.setdefault("TRANSFORMERS_NO_ADVISORY_WARNINGS", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import logging
+logging.getLogger("transformers").setLevel(logging.ERROR)
+logging.getLogger("accelerate").setLevel(logging.ERROR)
+logging.getLogger("av").setLevel(logging.ERROR)
 
 import re
 import av
 import numpy as np
 import torch
 from transformers import VideoLlavaProcessor, VideoLlavaForConditionalGeneration
+
+try:
+    from transformers import logging as hf_logging
+    hf_logging.set_verbosity_error()
+    hf_logging.disable_progress_bar()
+    hf_logging.disable_default_handler()
+except Exception:
+    pass
 
 
 LLAVA_DEVICE = None
