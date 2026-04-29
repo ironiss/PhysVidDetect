@@ -44,6 +44,7 @@ fake_shards/
 real_shards/
 *.h5
 *.mp4
+!inference_pipeline/example_videos/*.mp4
 
 # --- Old results in root ---
 /results_*/

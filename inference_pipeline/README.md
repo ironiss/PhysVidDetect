@@ -29,14 +29,14 @@ Useful flags:
 
 ## Example
 
-Sample fake video shipped in [`assets/generated_video_sample.mp4`](../assets/generated_video_sample.mp4):
+Sample fake video shipped in [`example_videos/generated_video_sample.mp4`](example_videos/generated_video_sample.mp4):
 
 ![Sample video](../assets/generated_video_sample.gif)
 
 > 🐱 That's my cat! The clip was generated from a single still photo of him by an unknown image-to-video model -- a nice in-the-wild test for the detector.
 
 ```
-python inference_pipeline/predict_video.py assets/generated_video_sample.mp4
+python inference_pipeline/predict_video.py inference_pipeline/example_videos/generated_video_sample.mp4
 ```
 
 Result:
@@ -52,3 +52,7 @@ huggingface-cli login   # accept facebook/sam3 model card first
 ```
 
 Recommended GPU: >=24 GB VRAM. Models are loaded sequentially, so peak VRAM ~= largest single stage, not their sum.
+
+## Limitations
+
+Reminder: feed **horizontal** videos -- vertical clips are out-of-distribution and often misclassified. See the root [README](../README.md#limitations) for the full list.
